@@ -1,12 +1,16 @@
+
+
+
 const Logger = require('./Logger')
+const CALLER = 'Arduino'
 let logger = new Logger()
 
 
 class Arduino {
-  constructor(id) {
+  constructor(id, temp, hum) {
     this.id = id
-    this.temp = 0
-    this.hum = 0
+    this.temp = temp
+    this.hum = hum
   }
 
   // sets the temparature and the huminity on the arduino

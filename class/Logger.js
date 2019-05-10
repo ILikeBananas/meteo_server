@@ -1,3 +1,9 @@
+/*
+* Class : Logger
+* Author : Jonny Hofmann
+* Utility : Manages logs with warnings, logs, bold logs and errors with color in the console.
+*/
+
 const colors = require('colors')
 colors.setTheme({
   error: [
@@ -14,6 +20,8 @@ colors.setTheme({
     'bold'
   ]
 })
+
+
 
 class Logger {
 
