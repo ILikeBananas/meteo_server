@@ -42,7 +42,7 @@ class ArduinoManager {
         return this.arduinos[i]
       }
     }
-    logger.warn(CALLER, 'getById() : Arduino not in the list. ID : ' + ID)
+    logger.warn(CALLER, 'getById() : Arduino not in the list. ID : ' + id)
   }
 
   doesExist(id) {
@@ -56,7 +56,7 @@ class ArduinoManager {
 
   setState(id, temp, hum) {
     for(let i = 0; i < this.arduinos.length; i++) {
-      if(this.arduinos[i].id = id) {
+      if(this.arduinos[i].id == id) {
         this.arduinos[i].setState(temp, hum)
         return
       }
