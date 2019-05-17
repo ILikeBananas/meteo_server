@@ -51,7 +51,7 @@ function adaptDashboard(arduino) {
   tr.appendChild(th)
 
   th = document.createElement('th')
-  th.appendChild(document.createTextNode('Huminity'))
+  th.appendChild(document.createTextNode('Humidity'))
   tr.appendChild(th)
 
   tbl.appendChild(tr)

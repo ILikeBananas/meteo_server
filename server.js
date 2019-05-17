@@ -1,7 +1,9 @@
+// Classes
 const Arduino = require('./class/Arduino')
 const ArduinoManager = require('./class/ArduinoManager')
 const Logger = require('./class/Logger')
 
+// NPM Modules
 const express = require('express')
 const path = require('path')
 const app = express()
@@ -9,10 +11,9 @@ const app = express()
 const port = 8080;
 
 let arduinoManager = new ArduinoManager()
-
 let logger = new Logger()
 
-
+// Index page
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/public/html/index.html'))
 })
@@ -45,6 +46,6 @@ app.get('/JS/comm.js', (req, res) => {
 })
 
 
-
+// Starting the server
 app.listen(port)
 logger.logBold('SERVER', 'listening on port : ' + port)

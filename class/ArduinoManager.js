@@ -45,6 +45,7 @@ class ArduinoManager {
     logger.warn(CALLER, 'getById() : Arduino not in the list. ID : ' + id)
   }
 
+  // Returns true if the given id exists
   doesExist(id) {
     for(let i = 0; i < this.arduinos.length; i++) {
       if(this.arduinos[i].id == id) {
@@ -54,6 +55,7 @@ class ArduinoManager {
     return false
   }
 
+  // Sets the data to the arduino
   setState(id, temp, hum) {
     for(let i = 0; i < this.arduinos.length; i++) {
       if(this.arduinos[i].id == id) {
@@ -64,6 +66,7 @@ class ArduinoManager {
     logger.warn(CALLER, 'setState() : Index does not exist. id : ' + id)
   }
 
+  // Returns a Json with all the data of all arduinos
   getAllValues() {
     let response = '{"arduinos" : ['
     for(let i = 0; i < this.arduinos.length; i++) {
@@ -76,7 +79,6 @@ class ArduinoManager {
     logger.log(CALLER, response)
     return response
   }
-
 }
 
 module.exports = ArduinoManager
