@@ -13,6 +13,7 @@ function getAllValues() {
   return xmlhttp.responseText;
 }
 
+// Fetches info
 function updateDashboard() {
   let response = getAllValues()
   arduino = JSON.parse(response)["arduinos"]
@@ -20,10 +21,18 @@ function updateDashboard() {
   if(arduino.length != arduinoCount) {
     adaptDashboard(arduino)
   }
+  for(let i = 0; i < arduino.length; i++) {
+    console.log(arduino[i].id + " " + arduino[i].temp + " " + arduino[i].hum)
+    let tempHTML = document.getElementById(arduino[i].id + 'temp')
+    let humHTML = document.getElementById(arduino[i].id + 'hum')
+    tempHTML.innerHTML = arduino[i].temp + '°C'
+    humHTML.innerHTML = arduino[i].hum + '%'
+  }
 }
 
 
 // param : parsed json with a arduino list
+// Alters the table size and the values inside
 function adaptDashboard(arduino) {
   // creates the base table
   let body = document.getElementById('tableSpace')
@@ -47,10 +56,12 @@ function adaptDashboard(arduino) {
 
   tbl.appendChild(tr)
 
+  // Adds table entries for the arduinos
   for(let i = 0; i < arduino.length; i++) {
     tr = document.createElement('tr')
     td = document.createElement('td')
     td.setAttribute('id', arduino[i].id + 'id')
+    td.innerHTML = arduino[i].id
     tr.appendChild(td)
 
     td = document.createElement('td')
@@ -62,6 +73,7 @@ function adaptDashboard(arduino) {
     tbl.appendChild(tr)
   }
 
+  // Add everything to the html after emptying the body
   body.innerHTML = ''
   body.appendChild(tbl)
 
@@ -69,8 +81,7 @@ function adaptDashboard(arduino) {
 
 }
 
-
-// Updates the data every
+// Updates the data every {updateInterval}_
 setInterval(function() {
   updateDashboard()
 }, updateInterval)
