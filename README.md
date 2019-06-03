@@ -1,21 +1,49 @@
 # Serveur météo
-## Prérequis
+## Utilisation par nodejs directement
+### Prérequis
 - NodeJS
 - NPM
 - Accès réseau suffisant pour installer des paquets NPM (Pas le réseau divtec par exemple)
 
-## Installation
+### Installation
+1. Télécharger le projet sur GitHub
+2. Extraire tout le dossier (si téléchargé en .zip)
 ```
 cd meteo_server
 npm install
 ```
 
-## Démarrage
+### Démarrage
 ````
 cd meteo_server
 npm start
 ````
 
+## Utilisation par docker
+### Prérequis
+- Docker à jour et installé
+
+### Installation simple
+```
+docker pull ilikebananas/meteo_server
+```
+
+### Build le docker depuis les sources
+1. Télécharger le projet sur GitHub
+2. Ectraire tout le dossier (si téléchargé en .zip)
+
+```
+docker build -t meteo_server .
+```
+
+
+
+### Démarrage
+```
+docker run ilikebananas/meteo_server -p <port>:8080
+```
+<port> correspond au port que vous souhaitez que le server écoute sur la machine physique  
+Vous pouvez ajouter un nom au contenaire en ajoutant le paramètre ```-- names meteo_server ```
 ## API
 ### Mettre à jour les données d'un arduino
 ```
