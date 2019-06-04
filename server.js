@@ -18,6 +18,9 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/public/html/index.html'))
 })
 
+// static public directory
+app.use('/public', express.static('public'))
+
 /////////
 // API //
 /////////
@@ -35,14 +38,6 @@ app.get('/API/:id/:temp/:hum', (req, res) => {
 app.get('/API/getAllValues', (req, res) => {
   logger.log('API', 'getAllValues called')
   res.send(arduinoManager.getAllValues());
-})
-
-
-///////////////////
-// Static routes //
-///////////////////
-app.get('/JS/comm.js', (req, res) => {
-  res.sendFile(path.join(__dirname + '/public/js/comm.js'))
 })
 
 
