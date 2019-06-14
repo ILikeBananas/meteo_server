@@ -11,6 +11,7 @@ class Arduino {
     this.id = id
     this.temp = temp
     this.hum = hum
+    this.name = ''
   }
 
   // sets the temparature and the huminity on the arduino
@@ -39,6 +40,11 @@ class Arduino {
     console.log("arduino " + this.id +
     "\n temp : " + this.temp +
     "\n hum : " + this.hum)
+  }
+
+  // Sets the name
+  setName(name) {
+    this.name = name
   }
 }
 

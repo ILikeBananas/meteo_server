@@ -73,11 +73,25 @@ class ArduinoManager {
       if(i != 0) {
         response += ','
       }
-      response += '{"id": ' + this.arduinos[i].id + ', "temp" : ' + this.arduinos[i].temp + ', "hum" : ' + this.arduinos[i].hum + '}'
+      response += '{"id": ' + this.arduinos[i].id + ', "temp" : ' + this.arduinos[i].temp + ', "hum" : ' + this.arduinos[i].hum
+
+      if(this.arduinos[i].name != '') {
+        response += ', "name" : "' + this.arduinos[i].name + '"}'
+      } else {
+        response += '}'
+      }
+
     }
     response += ']}'
     logger.log(CALLER, response)
     return response
+  }
+
+  // Set the name of the given arduino
+  setName(id, name) {
+    logger
+    this.getById(id).setName(name)
+    logger.logBold(CALLER, id + ' changed name to ' + name)
   }
 }
 

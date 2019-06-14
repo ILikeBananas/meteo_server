@@ -1,4 +1,4 @@
-const httpRequest = "http://192.168.43.84:8080/API/getAllValues";
+const httpRequest = "http://localhost:8080/API/getAllValues";
 const updateInterval = 3000 // time in milliseconds between each api call
 
 let arduino = {"temp":999,"hum":999,"id":1}
@@ -16,6 +16,7 @@ function getAllValues() {
 // Fetches info
 function updateDashboard() {
   let response = getAllValues()
+  console.log(response)
   arduino = JSON.parse(response)["arduinos"]
   console.log(arduino.length + '   ' + arduinoCount)
   if(arduino.length != arduinoCount) {
@@ -23,9 +24,17 @@ function updateDashboard() {
   }
   for(let i = 0; i < arduino.length; i++) {
     console.log(arduino[i].id + " " + arduino[i].temp + " " + arduino[i].hum)
+
+    // Updates name in table
+    let nameHTML = document.getElementById(arduino[i].id + 'name')
+    nameHTML.innerHTML = arduino[i].name
+
+    // Updates temperature in table
     let tempHTML = document.getElementById(arduino[i].id + 'temp')
-    let humHTML = document.getElementById(arduino[i].id + 'hum')
     tempHTML.innerHTML = arduino[i].temp + '°C'
+
+    // Updates humidity in table
+    let humHTML = document.getElementById(arduino[i].id + 'hum')
     humHTML.innerHTML = arduino[i].hum + '%'
   }
 }
@@ -47,6 +56,10 @@ function adaptDashboard(arduino) {
   tr.appendChild(th)
 
   th = document.createElement('th')
+  th.appendChild(document.createTextNode('Name'))
+  tr.appendChild(th)
+
+  th = document.createElement('th')
   th.appendChild(document.createTextNode('Temperature'))
   tr.appendChild(th)
 
@@ -59,14 +72,20 @@ function adaptDashboard(arduino) {
   // Adds table entries for the arduinos
   for(let i = 0; i < arduino.length; i++) {
     tr = document.createElement('tr')
+
     td = document.createElement('td')
     td.setAttribute('id', arduino[i].id + 'id')
     td.innerHTML = arduino[i].id
     tr.appendChild(td)
 
     td = document.createElement('td')
+    td.setAttribute('id', arduino[i].id + 'name')
+    tr.appendChild(td)
+
+    td = document.createElement('td')
     td.setAttribute('id', arduino[i].id + 'temp')
     tr.appendChild(td)
+
     td = document.createElement('td')
     td.setAttribute('id', arduino[i].id + 'hum')
     tr.appendChild(td)

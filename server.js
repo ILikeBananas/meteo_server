@@ -24,7 +24,26 @@ app.use('/public', express.static('public'))
 /////////
 // API //
 /////////
-app.get('/API/:id/:temp/:hum', (req, res) => {
+
+/*
+* API call : setName
+* description : Sets the name of the given arduino
+* :id : the arduinos ID
+* :name : name to give to the arduino
+*/
+app.get('/API/setName/:id/:name', (req, res) => {
+  arduinoManager.setName(req.params.id, req.params.name)
+  res.send('ok')
+})
+
+/*
+* API call : setState
+* description : Sets the temperature and the humidity
+* :id : ID of the arduino to change
+* :temp : the new temperature
+* :hum : the new humidity
+*/
+app.get('/API/setState/:id/:temp/:hum', (req, res) => {
     //logger.log('API', ':id/:temp/:hum called')
     if(arduinoManager.doesExist(req.params.id)) {
       arduinoManager.setState(req.params.id, req.params.temp, req.params.hum)
@@ -35,10 +54,15 @@ app.get('/API/:id/:temp/:hum', (req, res) => {
     logger.logBold('API', 'API was called')
 })
 
+/*
+* API call : getAllValues
+* description : Returns all the values of all arduinos in a json
+*/
 app.get('/API/getAllValues', (req, res) => {
   logger.log('API', 'getAllValues called')
   res.send(arduinoManager.getAllValues());
 })
+
 
 
 // Starting the server
