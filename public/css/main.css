@@ -1,0 +1,26 @@
+* { box-sizing: border-box; }
+
+body{
+    background-color: whitesmoke;
+}
+
+header{
+    display: flex;
+    padding: 1%;
+}
+header h1{
+    margin-right: calc(50% - 388px);
+}
+header img{
+    margin: 0 1% 0 calc(49% - 63.41px);
+}
+#charStationData{
+    padding: 3% 0;
+}
+#arduinoData{
+    padding: 3% 0;
+}
+footer{
+    display: flex;
+    padding: 2% calc(50% - 190.64px);
+}
