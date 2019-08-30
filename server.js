@@ -32,8 +32,13 @@ app.use('/public', express.static('public'))
 * :name : name to give to the arduino
 */
 app.get('/API/setName/:id/:name', (req, res) => {
-  arduinoManager.setName(req.params.id, req.params.name)
-  res.send('ok')
+  if(arduinoManager.setName(req.params.id, req.params.name)){
+    res.status = 200
+    res.send('Name altered')
+  } else {
+    res.status = 520
+    res.send('Arduino does not exist')
+  }
 })
 
 /*
@@ -45,12 +50,16 @@ app.get('/API/setName/:id/:name', (req, res) => {
 */
 app.get('/API/setState/:id/:temp/:hum', (req, res) => {
     //logger.log('API', ':id/:temp/:hum called')
+    let message = ''
     if(arduinoManager.doesExist(req.params.id)) {
       arduinoManager.setState(req.params.id, req.params.temp, req.params.hum)
+      message = "Arduino altered"
     } else {
       arduinoManager.add(req.params.id, req.params.temp, req.params.hum)
+      message = "Arduino created"
     }
-    res.send('daccord')
+    res.status(200)
+    res.send(message)
     logger.logBold('API', 'API was called')
 })
 
