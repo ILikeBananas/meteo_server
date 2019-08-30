@@ -8,6 +8,7 @@
 ### Installation
 1. Télécharger le projet sur GitHub
 2. Extraire tout le dossier (si téléchargé en .zip)
+
 ```
 cd meteo_server
 npm install
@@ -47,7 +48,7 @@ Vous pouvez ajouter un nom au contenaire en ajoutant le paramètre ```-- names m
 ## API
 ### Mettre à jour les données d'un arduino
 ```
-/API/{id}/{température}/{humidité}
+/API/setState/{id}/{température}/{humidité}
 ```
 Change les données du arduino _"identifiant"_ pour y affecter sa _température_ et son _humidité_
 
@@ -57,3 +58,9 @@ Change les données du arduino _"identifiant"_ pour y affecter sa _température_
 /API/getAllValues
 ````
 Renvoie un JSON qui contient les données de tous les arduinos connectés
+
+### Changer le nom d'un arduino
+````
+/API/setName/{id}/{name}
+````
+Change le nom de l'arduino avec le _id_ donné
