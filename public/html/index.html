@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -6,20 +6,31 @@
     <link rel="stylesheet" href="/public/css/main.css">
   </head>
   <body>
-    <h1>Temperature</h1>
-    <div id ="tableSpace">
-      <table>
-        <tr>
-          <th>ID</th>
-          <th>Temperature (°C)</th>
-          <th>humidity (%)</th>
-        </tr>
-        <tr>
-          <td id="5id"></td>
-          <td id="5temp"></td>
-          <td id="5hum"></td>
-        </tr>
-      </table>
+    <div id="wrapper">
+      <header>
+        <h1>Visualisation Arduino</h1>
+        <img src="public/img/dt.png"/>
+      </header>
+      <section id = "charStationData" class="section">
+        <p>Informations de la station char</p>
+      </section>
+      <section id = "arduinoData" class="section">
+        <div id ="tableSpace">
+          <table>
+            <tr>
+              <th>ID</th>
+              <th>Temperature (°C)</th>
+              <th>humidity (%)</th>
+            </tr>
+            <tr>
+              <td id="5id"></td>
+              <td id="5temp"></td>
+              <td id="5hum"></td>
+            </tr>
+          </table>
+        </div>
+      </section>
+      <footer><p>© 2019 Division technique du CEJEF. Tous droits réservés.</p></footer>
     </div>
     <script type="text/javascript" src="/public/js/comm.js"></script>
   </body>
