@@ -2,27 +2,32 @@
 html{
     height: 100%;
 }
-body{
-    height: 100%;
+body {
+    min-height: 100%;
     background-color: whitesmoke;
-    padding: 1%;
+    position: relative;
+    margin: 0;
 }
 header{
-    display: flex;
     padding: 2%;
 }
-header h1{
-    min-width: calc(100% - 388px);
+header h1 {
+    display: inline-block;
+    min-width: calc(100% - (2% + 388px));
+}
+header img {
+    display: inline-block;
 }
 #charStationData{
-    padding: 3% 1%;
+    padding: 3% 2%;
 }
-#arduinoData{
-    padding: 3% 1%;
+#arduinoData {
+    padding: 3% 2%;
 }
 table {
     border-collapse: collapse;
     padding: 0 2%;
+    min-width: 100%;
 }
 table, th, td {
     border: none;
@@ -39,7 +44,12 @@ th {
 tr:nth-child(even) {
     background-color: #B1B2B0;
 }
-footer{
-    display: flex;
+footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
     padding: 0% calc(50% - 190.64px);
 }
+
+

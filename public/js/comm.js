@@ -1,4 +1,4 @@
-const httpRequest = "http://localhost:8080/API/getAllValues";
+const httpRequest = "http://localhost:8081/API/getAllValues";
 const updateInterval = 3000 // time in milliseconds between each api call
 
 let arduino = {"temp":999,"hum":999,"id":1}
