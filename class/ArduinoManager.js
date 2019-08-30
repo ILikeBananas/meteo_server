@@ -88,10 +88,17 @@ class ArduinoManager {
   }
 
   // Set the name of the given arduino
+  // returns true if it worked
   setName(id, name) {
-    logger
-    this.getById(id).setName(name)
-    logger.logBold(CALLER, id + ' changed name to ' + name)
+    let exists = this.doesExist(id)
+    if(exists) {
+      this.getById(id).setName(name)
+      logger.logBold(CALLER, id + ' changed name to ' + name)
+    } else {
+      logger.warn(CALLER, id + ' does not exist');
+    }
+
+    return exists
   }
 }
 
