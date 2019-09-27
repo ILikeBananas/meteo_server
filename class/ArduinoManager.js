@@ -70,9 +70,12 @@ class ArduinoManager {
   getAllValues() {
     let response = '{"arduinos" : ['
     for(let i = 0; i < this.arduinos.length; i++) {
+
+      // Adds a comma if it is the first element in the json
       if(i != 0) {
         response += ','
       }
+
       response += '{"id": ' + this.arduinos[i].id + ', "temp" : ' + this.arduinos[i].temp + ', "hum" : ' + this.arduinos[i].hum
 
       if(this.arduinos[i].name != '') {

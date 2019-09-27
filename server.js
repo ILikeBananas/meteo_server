@@ -18,6 +18,11 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/public/html/index.html'))
 })
 
+// Admin page
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname + '/public/html/admin.html'))
+})
+
 // static public directory
 app.use('/public', express.static('public'))
 
@@ -51,16 +56,22 @@ app.get('/API/setName/:id/:name', (req, res) => {
 app.get('/API/setState/:id/:temp/:hum', (req, res) => {
     //logger.log('API', ':id/:temp/:hum called')
     let message = ''
-    if(arduinoManager.doesExist(req.params.id)) {
-      arduinoManager.setState(req.params.id, req.params.temp, req.params.hum)
-      message = "Arduino altered"
+    let id = parseInt(req.params.id, 10)
+    if(!Number.isInteger(id)) {
+        res.status(520)
+        message = 'invalid name'
     } else {
-      arduinoManager.add(req.params.id, req.params.temp, req.params.hum)
-      message = "Arduino created"
+      if(arduinoManager.doesExist(id)) {
+        arduinoManager.setState(id, req.params.temp, req.params.hum)
+        message = "Arduino altered"
+      } else {
+        arduinoManager.add(id, req.params.temp, req.params.hum)
+        message = "Arduino created"
+      }
+      res.status(200)
+      logger.logBold('API', 'API was called')
     }
-    res.status(200)
     res.send(message)
-    logger.logBold('API', 'API was called')
 })
 
 /*
@@ -71,6 +82,25 @@ app.get('/API/getAllValues', (req, res) => {
   logger.log('API', 'getAllValues called')
   res.send(arduinoManager.getAllValues());
 })
+
+/*
+* API call : remove
+* description : Removes the arduino by the id given
+*/
+app.get('/API/remove/:id', (req, res) => {
+  logger.logBold("server", "remove by id called")
+  let message = ''
+  if(arduinoManager.doesExist(req.params.id)) {
+    arduinoManager.removeById(req.params.id)
+    message = 'Arduino removed'
+    res.status(200)
+  } else {
+    res.status(520)
+    message = "The given arduino doesn't exist"
+  }
+  res.send(message)
+})
+
 
 
 

@@ -1,29 +1,34 @@
-const httpRequest = "http://localhost:8081/API/getAllValues";
+const host = 'http://localhost:8081'
+const getAllValuesRequest = host + '/API/getAllValues'
+const setNameRequest = host + '/setName/'
 const updateInterval = 3000 // time in milliseconds between each api call
 
 let arduino = {"temp":999,"hum":999,"id":1}
 let arduinoCount = 0;
+let oldArduinos = ''
 
 // Does a request do the server to get all values
 // returns the servers response
 function getAllValues() {
   let xmlhttp = new XMLHttpRequest()
-  xmlhttp.open('GET', httpRequest, false)
+  xmlhttp.open('GET', getAllValuesRequest, false)
   xmlhttp.send(null)
   return xmlhttp.responseText;
 }
 
 // Fetches info
-function updateDashboard() {
+function updateDashboard(admin = false) {
   let response = getAllValues()
   console.log(response)
   arduino = JSON.parse(response)["arduinos"]
   console.log(arduino.length + '   ' + arduinoCount)
-  if(arduino.length != arduinoCount) {
-    adaptDashboard(arduino)
+
+  if(arduino != oldArduinos) {
+    adaptDashboard(arduino, admin)
+    oldArduinos = arduino
   }
   for(let i = 0; i < arduino.length; i++) {
-    console.log(arduino[i].id + " " + arduino[i].temp + " " + arduino[i].hum)
+    //console.log(arduino[i].id + " " + arduino[i].temp + " " + arduino[i].hum)
 
     // Updates name in table
     let nameHTML = document.getElementById(arduino[i].id + 'name')
@@ -42,7 +47,7 @@ function updateDashboard() {
 
 // param : parsed json with a arduino list
 // Alters the table size and the values inside
-function adaptDashboard(arduino) {
+function adaptDashboard(arduino, admin) {
   // creates the base table
   let body = document.getElementById('tableSpace')
   let tbl = document.createElement('table')
@@ -67,6 +72,18 @@ function adaptDashboard(arduino) {
   th.appendChild(document.createTextNode('Humidity'))
   tr.appendChild(th)
 
+  // If it's the admin page, adds buttons to delete and rename
+  if(admin) {
+    th = document.createElement('th')
+    th.appendChild(document.createTextNode('Delete'))
+    tr.appendChild(th)
+
+
+    th = document.createElement('th')
+    th.appendChild(document.createTextNode('Rename'))
+    tr.appendChild(th)
+  }
+
   tbl.appendChild(tr)
 
   // Adds table entries for the arduinos
@@ -89,18 +106,51 @@ function adaptDashboard(arduino) {
     td = document.createElement('td')
     td.setAttribute('id', arduino[i].id + 'hum')
     tr.appendChild(td)
+
+    // If it's the admin page, add buttons for each element
+    if(admin) {
+      td = document.createElement('td')
+      td.setAttribute('id', arduino[i].id + 'Del')
+
+      let btn
+      btn = document.createElement('button')
+      btn.innerHTML = 'Delete'
+      btn.addEventListener('click', () => {
+        deleteArduino(arduino[i].id)
+      })
+
+      td.appendChild(btn)
+      tr.appendChild(td)
+
+      td = document.createElement('td')
+      td.setAttribute('id', arduino[i].id + 'Ren')
+
+      btn = document.createElement('button')
+      btn.innerHTML = 'rename'
+      btn.addEventListener('click', () => {
+        renameArduino(arduino[i].id)
+      })
+
+      td.appendChild(btn)
+      tr.appendChild(td)
+    }
+
     tbl.appendChild(tr)
   }
+
 
   // Add everything to the html after emptying the body
   body.innerHTML = ''
   body.appendChild(tbl)
 
   arduinoCount = arduino.length
-
 }
 
-// Updates the data every {updateInterval}_
-setInterval(function() {
-  updateDashboard()
-}, updateInterval)
+
+
+/*
+  Sends an API call to change the arduinos name
+*/
+function setName(id, name) {
+  let httpRequest = setNameRequest + id + '/' + name
+}
