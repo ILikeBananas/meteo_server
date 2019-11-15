@@ -19,6 +19,7 @@
   "dependencies": {
     "colors": "^1.3.3",
     "express": "^4.17.0",
+    "modbus-stream": "^0.44.0",
     "sync-request": "^6.1.0"
   }
 }
