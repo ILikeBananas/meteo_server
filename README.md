@@ -20,6 +20,12 @@ cd meteo_server
 npm start
 ````
 
+### Utilisation
+Ouvrez votre nagivateur web et naviguer sur la page `` localhost:8081 ``
+
+### Page admin
+La page admin n'est pas encore sécurisée mais permet déjà de renommer des arduinos et de les supprimer. Pour accéder a cette page, naviguer sur la page ``localhost:8081/admin``.
+
 ## Utilisation par docker
 ### Prérequis
 - Docker à jour et installé
@@ -36,12 +42,9 @@ docker pull ilikebananas/meteo_server
 ```
 docker build -t meteo_server .
 ```
-
-
-
 ### Démarrage
 ```
-docker run ilikebananas/meteo_server -p <port>:8080
+docker run ilikebananas/meteo_server -p <port>:8081
 ```
 <port> correspond au port que vous souhaitez que le server écoute sur la machine physique  
 Vous pouvez ajouter un nom au contenaire en ajoutant le paramètre ```-- names meteo_server ```
@@ -51,7 +54,6 @@ Vous pouvez ajouter un nom au contenaire en ajoutant le paramètre ```-- names m
 /API/setState/{id}/{température}/{humidité}
 ```
 Change les données du arduino _"identifiant"_ pour y affecter sa _température_ et son _humidité_
-
 
 ### Recevoir toutes les valeurs
 ````
@@ -64,3 +66,9 @@ Renvoie un JSON qui contient les données de tous les arduinos connectés
 /API/setName/{id}/{name}
 ````
 Change le nom de l'arduino avec le _id_ donné
+
+### Suppression d'un arduino
+````
+/API/remove/{id}
+````
+Supprime l'arduino avec le _id_ donné
