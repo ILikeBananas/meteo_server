@@ -37,7 +37,7 @@ docker pull ilikebananas/meteo_server
 
 ### Build le docker depuis les sources
 1. Télécharger le projet sur GitHub
-2. Ectraire tout le dossier (si téléchargé en .zip)
+2. Extraire tout le dossier (si téléchargé en .zip)
 
 ```
 docker build -t meteo_server .
@@ -65,10 +65,10 @@ Renvoie un JSON qui contient les données de tous les arduinos connectés
 ````
 /API/setName/{id}/{name}
 ````
-Change le nom de l'arduino avec le _id_ donné
+Change le nom de l'arduino avec l'_id_ donné
 
 ### Suppression d'un arduino
 ````
 /API/remove/{id}
 ````
-Supprime l'arduino avec le _id_ donné
+Supprime l'arduino avec l'_id_ donné
